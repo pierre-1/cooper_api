@@ -12,6 +12,9 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'factory_bot_rails'
   gem 'pry-rails'
   gem 'pry-byebug'
 end
