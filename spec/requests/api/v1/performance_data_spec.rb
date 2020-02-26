@@ -40,14 +40,12 @@ RSpec.describe Api::V1::PerformanceDataController, type: :request do
 
     #   it 'unsuccessfully creates a data entry' do
     #     entry = PerformanceData.last
-    #     expect(entry.data).to eq 'message' => 400
+    #     expect(entry.data).to eq 'message' => 400 
     #   end
     # end
-
-
-
-
   end
+
+
 
   describe 'GET /api/v1/performance_data' do
     let!(:existing_entries) do
