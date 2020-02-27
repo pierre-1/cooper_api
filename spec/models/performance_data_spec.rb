@@ -9,6 +9,10 @@ RSpec.describe PerformanceData, type: :model do
     it {is_expected.to belong_to :user }
   end
 
+  describe 'Validations' do
+    it {is_expected.to validate_presence_of :message}
+  end
+
   describe 'Factory' do
     it 'should have valid Factory' do
       expect(create(:performance_data)).to be_valid
