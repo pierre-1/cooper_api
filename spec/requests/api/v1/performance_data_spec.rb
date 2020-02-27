@@ -4,25 +4,48 @@ RSpec.describe Api::V1::PerformanceDataController, type: :request do
   let(:headers) { { HTTP_ACCEPT: 'application/json'}.merge!(credentials) }
 
   describe 'POST /api/v1/performance_data' do
-    before do
-      post '/api/v1/performance_data',
-      params: {
-          performance_data: {
-              data: { message: 'Average' }
-          }
-      },
-      headers: headers
+    describe 'successfully' do
+      before do
+        post '/api/v1/performance_data',
+        params: {
+            performance_data: {
+                data: { message: 'Average' }
+            }
+        },
+        headers: headers
+      end
+
+      it 'returns a 200 response status' do
+        expect(response).to have_http_status 200
+      end
+
+      it 'successfully creates a data entry' do
+        entry = PerformanceData.last
+        expect(entry.data).to eq 'message' => 'Average'
+      end
     end
 
-    it 'returns a 200 response status' do
-      expect(response).to have_http_status 200
-    end
-
-    it 'successfully creates a data entry' do
-      entry = PerformanceData.last
-      expect(entry.data).to eq 'message' => 'Average'
+    describe 'unsuccessfully' do
+      before do
+        post '/api/v1/performance_data',
+        params: {
+            performance_data: {
+                data: { message: '' }
+            }
+        },
+        headers: headers
+      end
+      it 'returns a 422 response status' do
+        expect(response).to have_http_status 422
+      end
+      it 'returns error message' do
+        expect(response_json['error']).to include "Message can't be blank"
+      end
     end
   end
+
+
+  
 
   describe 'GET /api/v1/performance_data' do
     let!(:existing_entries) do

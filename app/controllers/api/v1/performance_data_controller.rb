@@ -6,7 +6,7 @@ class Api::V1::PerformanceDataController < ApplicationController
     if data.save
       head :ok
     else
-      render json: { error: data.errors.full_messages }
+      render json: { error: data.errors.full_messages }, status: 422
     end
   end
 
